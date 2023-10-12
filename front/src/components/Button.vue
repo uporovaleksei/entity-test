@@ -5,7 +5,11 @@ const buttonText = ref('Создать')
 </script>
 
 <template>
-  <button class="disable" :class="{'active':selectedItem.value != null}" :disabled="selectedItem.value == null || !selectedItem">
+  <button
+    class="disable"
+    :class="{ active: selectedItem.value != null }"
+    :disabled="selectedItem.value == null || !selectedItem"
+  >
     {{ props.loading ? '' : 'Создать' }}
     <div v-if="props.loading" id="preloader"></div>
   </button>
@@ -22,18 +26,23 @@ button {
   border: 2px solid #4c8bf7;
   border-radius: 5px;
   transition: 0.3s;
-  &.disable{
+  &.disable {
     background: #fff;
     border: 1px solid #cecece;
     color: #3c3b3b;
     cursor: not-allowed;
   }
-  &.active{
- background: #4c8bf7;
-  border: 2px solid #4c8bf7;
+  &.active {
+    background: #4c8bf7;
+    border: 2px solid #4c8bf7;
     color: #fff;
     cursor: pointer;
-
+    &:hover {
+      box-shadow: 0 0 10px #4c8bf7;
+    }
+    &:active {
+      scale: 0.98;
+    }
   }
 }
 #preloader {

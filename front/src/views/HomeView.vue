@@ -3,8 +3,8 @@ import DropDown from '../components/DropDown.vue'
 import Button from '../components/Button.vue'
 import DisplayEntity from '../components/DisplayEntity.vue'
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import { server } from '../../utils/helper'
+import axios from 'axios'
 
 const curItem = ref('')
 const selectedEntity = ref('')
@@ -49,7 +49,7 @@ const createEntity = async () => {
     const data = {
       [selectedEntity.value]: []
     }
-    const response = await axios.post(`${server.baseURL}crm/create-entity`, {
+    const response = await axios.post(`${server.baseURL}create-entity`, {
       entityType: selectedEntity.value,
       data: data
     })
@@ -63,9 +63,9 @@ const createEntity = async () => {
     loading.value = false
     localStorage.setItem('entities', JSON.stringify(entities.value))
   } catch (error) {
-    console.error('Ошибка при создании сущности', error)
-  }finally {
-    loading.value = false; 
+    console.error(error)
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -73,18 +73,17 @@ const createEntity = async () => {
 <template>
   <div class="container">
     <div class="actions">
-    <DropDown :links="links" @selectItem="handleItemSelected" />
-    <Button @click="createEntity" :loading="loading" :selectedItem="curItem" />
+      <DropDown :links="links" @selectItem="handleItemSelected" />
+      <Button @click="createEntity" :loading="loading" :selectedItem="curItem" />
     </div>
     <div class="content">
-
-    <DisplayEntity :entities="entities" />
+      <DisplayEntity :entities="entities" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container{
+.container {
   width: 60%;
   margin: 0 auto;
   height: 100dvh;
@@ -93,7 +92,7 @@ const createEntity = async () => {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  .actions{
+  .actions {
     width: 100%;
     display: flex;
     align-items: center;
@@ -101,8 +100,8 @@ const createEntity = async () => {
     align-self: flex-start;
     gap: 20px;
   }
-  .content{
-    box-shadow:  0 0 4px #4c8bf7fe;
+  .content {
+    box-shadow: 0 0 4px #4c8bf7fe;
     border-radius: 5px;
     width: 100%;
     height: 500px;
